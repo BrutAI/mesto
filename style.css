@@ -12,6 +12,10 @@
   min-width: 320px;
 }
 
+.root-modal {
+  overflow: hidden;
+}
+
 .center {
   max-width: 880px;
   margin: 0 auto;
@@ -24,7 +28,7 @@
 }
 
 .header {
-  padding: 45px 0 41px;
+  padding: 45px 0 37px;
   border-bottom: 1px solid rgba(84,84,84,.7);
   max-width: 880px;
   margin: 0 auto;
@@ -39,6 +43,7 @@
 @media screen and (max-width: 767px) {
   .header {
     margin: 0;
+    padding: 28px 0;
   }
 }
 
@@ -49,19 +54,26 @@
   transition: opacity .2s ease-in-out;
 }
 
+.header__logo-image {
+  object-fit: cover;
+  width: 100%;
+}
+
 .header__logo:hover {
   opacity: .5;
 }
 
 @media screen and (max-width: 767px) {
   .header__logo {
-    margin: 0 19px;
+    margin: 0px 26px;
+    width: 104px;
+    height: 25px;
   }
 }
 
 .profile {
   display: flex;
-  padding: 36px 0 40px;
+  padding: 40px 0 51px;
   align-items: center;
   justify-content: space-between;
 }
@@ -69,11 +81,19 @@
 @media screen and (max-width: 767px) {
   .profile {
     flex-direction: column;
+    padding: 42px 0 36px;
   }
 }
 
 .profile__info {
   padding-left: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info {
+    padding-left: 27px;
+    margin: 26px 0 33px;
+  }
 }
 
 .profile__name {
@@ -84,11 +104,27 @@
   display: inline-block;
 }
 
+@media screen and (max-width: 767px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 33px;
+  }
+}
+
 .profile__job {
   font-size: 18px;
   line-height: 22px;
   margin: 0;
-  padding-top: 16px;
+  padding-top: 7px;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__job {
+    font-size: 14px;
+    line-height: 17px;
+    margin-right: 24px;
+    text-align: center;
+  }
 }
 
 .profile__edit-button {
@@ -97,7 +133,7 @@
   height: 24px;
   box-sizing: border-box;
   display: inline-block;
-  margin-left: 18px;
+  margin-left: 15px;
   background-size: 10px;
   background-position: center;
   background-image: url(./images/pen.svg);
@@ -107,6 +143,15 @@
 
 .profile__edit-button:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    background-size: 8px;
+    margin-left: 6px;
+  }
 }
 
 .profile__add-button {
@@ -131,6 +176,7 @@
   .profile__add-button {
     margin-left: 0;
     width: 100%;
+    background-size: 16px;
   }
 }
 
@@ -164,7 +210,7 @@
 }
 
 .elements__caption {
-  padding: 25px 15px;
+  padding: 25px 20px;
   margin: 0;
   display: flex;
   justify-content: space-between;
@@ -189,7 +235,7 @@
   background-repeat: no-repeat;
   background-image: url(./images/like.svg);
   transition: opacity .2s ease-in-out;
-  background-size: 19px 22px;
+  background-size: 22px 19px;
 }
 
 .elements__like:hover {
@@ -202,7 +248,13 @@
 }
 
 .footer {
-  padding: 67px 0 60px;
+  padding: 68px 0 60px;
+}
+
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 48px 0 36px;
+  }
 }
 
 .footer__copyright {
@@ -211,6 +263,14 @@
   color: #545454;
   margin: 0;
 }
+
+@media screen and (max-width: 767px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
 
 .popup {
   background: rgba(0, 0, 0, 0.5);
@@ -229,15 +289,6 @@
   display: flex;
 }
 
-.popup__title {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 29px;
-  color: #000;
-  margin: 0;
-  margin-bottom: 29px;
-}
-
 .popup__container {
   min-width: 430px;
   background: #FFFFFF;
@@ -249,23 +300,47 @@
   box-sizing: border-box;
 }
 
+@media screen and (max-width: 519px) {
+  .popup__container {
+    min-width: calc(100% - 38px);
+    padding: 25px 22px;
+  }
+}
+
+.popup__title {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000;
+  margin: 0;
+  margin-bottom: 29px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__title {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 55px;
+  }
+}
+
 .popup__close {
   background-image: url(./images/close.svg);
-  width: 40px;
-  height: 40px;
+  width: 58px;
+  height: 58px;
   background-repeat: no-repeat;
-  margin-left: 479px;
-  transform: rotate(45deg)
+  margin-left: 470px;
+  margin-bottom: -10px;
 }
 
 @media screen and (max-width: 519px) {
   .popup__close {
-    width: 26px;
-    height: 26px;
-    background-size: 26px;
+    width: 40px;
+    height: 40px;
+    background-size: 40px;
     margin-left: auto;
-    margin-right: 19px;
-    margin-bottom: 10px;
+    margin-right: 17px;
+    margin-bottom: 12px;
   }
 }
 
@@ -294,3 +369,13 @@
 .popup__submite:hover {
   opacity: .8;
 }
+
+@media screen and (max-width: 519px) {
+  .popup__submite {
+    min-height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 34px;
+  }
+}
+
