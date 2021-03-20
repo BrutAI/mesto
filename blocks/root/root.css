@@ -1,0 +1,13 @@
+.root {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #000;
+  color: #fff;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern";
+  margin: 0;
+  min-width: 320px;
+}

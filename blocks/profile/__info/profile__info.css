@@ -1,0 +1,10 @@
+.profile__info {
+  padding-left: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__info {
+    padding-left: 27px;
+    margin: 26px 0 33px;
+  }
+}

@@ -13,7 +13,7 @@ let jobInput = formElement.querySelector('.popup__job');
 function openModal(evt) {
   evt.preventDefault();
   popup.classList.toggle('popup_opened');
-  root.classList.toggle('root-modal'); // чтобы фон не скроллился
+  root.classList.toggle('root_modal'); // чтобы фон не скроллился
 }
 
 formElement.addEventListener('submit', function(evt) {
