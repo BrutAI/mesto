@@ -3,6 +3,8 @@
   height: 33px;
   display: inline-block;
   transition: opacity .2s ease-in-out;
+  background-image: url(../../../images/logo.svg);
+  background-size: cover;
 }
 
 
@@ -13,7 +15,7 @@
 @media screen and (max-width: 767px) {
   .header__logo {
     margin: 0px 26px;
-    width: 104px;
-    height: 25px;
+    width: 105px;
+    height: 24px;
   }
 }

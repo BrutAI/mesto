@@ -3,13 +3,19 @@
   width: 24px;
   height: 24px;
   box-sizing: border-box;
-  display: inline-block;
-  margin-left: 15px;
+  margin: 6px 0 0 19px;
   background-size: 10px;
   background-position: center;
   background-image: url(../../../images/pen.svg);
   transition: opacity .2s ease-in-out;
   background-repeat: no-repeat;
+  background-color: unset;
+  padding: 0;
+  align-self: center;
+}
+
+.profile__edit-button:focus {
+  outline: none;
 }
 
 .profile__edit-button:hover {
@@ -21,6 +27,6 @@
     width: 18px;
     height: 18px;
     background-size: 8px;
-    margin-left: 6px;
+    margin: 1px 0 0 10px;
   }
 }

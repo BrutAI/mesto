@@ -10,6 +10,13 @@
   background-image: url(../../../images/plus.svg);
   transition: opacity .2s ease-in-out;
   background-repeat: no-repeat;
+  background-color: unset;
+  padding: 0;
+
+}
+
+.profile__add-button:focus {
+  outline: none;
 }
 
 .profile__add-button:hover {

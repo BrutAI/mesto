@@ -5,6 +5,13 @@
   background-image: url(../../../images/like.svg);
   transition: opacity .2s ease-in-out;
   background-size: 22px 19px;
+  background-color: unset;
+  border: none;
+  padding: 0;
+}
+
+.elements__like:focus {
+  outline: none;
 }
 
 .elements__like:hover {
@@ -13,5 +20,5 @@
 
 .elements__like:active {
   opacity: 1;
-  background-image: url(./images/like-active.svg);
+  background-image: url(../../../images/like-active.svg);
 }

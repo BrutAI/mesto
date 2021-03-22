@@ -9,19 +9,17 @@
 </head>
 <body class="root">
   <header class="header">
-    <a href="#" class="header__logo" target="_self">
-      <img class="header__logo-image" src="./images/logo.svg" alt="Mesto Russia">
-    </a>
+    <a href="#" class="header__logo" target="_self" title="Mesto Russia"></a>
   </header>
   <main class="main center">
     <section class="profile">
       <img src="./images/custo.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <a href="#" class="profile__edit-button" target="_self"></a>
+        <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
         <p class="profile__job">Исследователь океана</p>
       </div>
-      <a href="#" class="profile__add-button" target="_self"></a>
+      <button type="button" class="profile__add-button" aria-label="Добавить элемент"></button>
     </section>
     <section class="elements">
       <ul class="elements__items">
@@ -29,42 +27,42 @@
           <img src="./images/1.jpg" alt="Яхтенная марина" class="elements__image">
           <div class="elements__caption">
             <h2 class="elements__name">Яхтенная марина</h2>
-            <a href="#" class="elements__like" target="_self"></a>
+            <button type="button" class="elements__like" aria-label="Поставить лайк"></button>
           </div>
         </li>
         <li class="elements__item">
           <img src="./images/2.jpg" alt="Красная Поляна" class="elements__image">
           <div class="elements__caption">
             <h2 class="elements__name">Красная Поляна</h2>
-            <a href="#" class="elements__like" target="_self"></a>
+            <button type="button" class="elements__like" aria-label="Поставить лайк"></button>
           </div>
         </li>
         <li class="elements__item">
           <img src="./images/3.jpg" alt="Мост" class="elements__image">
           <div class="elements__caption">
             <h2 class="elements__name">Мост</h2>
-            <a href="#" class="elements__like" target="_self"></a>
+            <button type="button" class="elements__like" aria-label="Поставить лайк"></button>
           </div>
         </li>
         <li class="elements__item">
           <img src="./images/4.jpg" alt="Лес" class="elements__image">
           <div class="elements__caption">
             <h2 class="elements__name">Лес</h2>
-            <a href="#" class="elements__like" target="_self"></a>
+            <button type="button" class="elements__like" aria-label="Поставить лайк"></button>
           </div>
         </li>
         <li class="elements__item">
           <img src="./images/5.jpg" alt="Кавказский государственный природный биосферный заповедник" class="elements__image">
           <div class="elements__caption">
             <h2 class="elements__name">Кавказский государственный природный биосферный заповедник</h2>
-            <a href="#" class="elements__like" target="_self"></a>
+            <button type="button" class="elements__like" aria-label="Поставить лайк"></button>
           </div>
         </li>
         <li class="elements__item">
           <img src="./images/6.jpg" alt="Эсто-Садок" class="elements__image">
           <div class="elements__caption">
             <h2 class="elements__name">Эсто-Садок</h2>
-            <a href="#" class="elements__like" target="_self"></a>
+            <button type="button" class="elements__like" aria-label="Поставить лайк"></button>
           </div>
         </li>
       </ul>
@@ -74,14 +72,16 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
   <section class="popup">
-    <a href="#" class="popup__close" target="_self"></a>
-    <form action="" class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <input type="text" class="popup__name popup__input" placeholder="Имя">
-      <input type="text" class="popup__job popup__input" placeholder="Работа">
-      <button class="popup__submite">Сохранить</button>
-    </form>
+    <div class="popup__container">
+      <form action="index.html" class="popup__form" name="profile">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="popup__input popup__input_value_name" placeholder="Имя" name="name">
+        <input type="text" class="popup__input popup__input_value_job" placeholder="Работа" name="job">
+        <button class="popup__submite" type="submit">Сохранить</button>
+      </form>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+    </div>
   </section>
-  <script src="./script.js"></script>
+  <script src="./scripts/script.js"></script>
 </body>
 </html>
