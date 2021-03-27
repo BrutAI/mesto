@@ -56,53 +56,70 @@ function toggleModal(modal) {
 
 addNewItem = evt => {
   evt.preventDefault();
-  const titleInput = formNewItem.querySelector('.popup__input_value_title').value;
-  const linkInput = formNewItem.querySelector('.popup__input_value_link').value;
+  const titleInput = document.querySelector('.add__input_value_title').value;
+  const linkInput = document.querySelector('.add__input_value_link').value;
   if (titleInput!==''&&linkInput!=='') addItem({name:titleInput, link:linkInput});
-  toggleModal();
+  document.querySelector('.add__input_value_title').value = '';
+  document.querySelector('.add__input_value_link').value = '';
+  toggleModal(document.querySelector('.add'));
 }
 
-function openModalAdd() {
-  const add = document.querySelector('.add');
-  const addForm = add.querySelector('.add__form');
-  toggleModal(add);
-  addForm.addEventListener('submit', addNewItem);
-}
-
-
-
-
-
-
-
-
-let editButton = document.querySelector('.profile__edit-button');
-let nameProfile = document.querySelector('.profile__name');
-let jobProfile = document.querySelector('.profile__job');
-
-let popup = document.querySelector('.popup');
-let closeButton = document.querySelector('.popup__close');
-
-let formElement = document.querySelector('.popup__form');
-let nameInput = formElement.querySelector('.popup__input_value_name');
-let jobInput = formElement.querySelector('.popup__input_value_job');
-
-function openModalProfile() {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-  popup.classList.add('popup_opened');
-  root.classList.add('root_modal');
-}
-
-
-
-function formSubmitHandler(evt) {
+editProfile = evt => {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  popup.classList.remove('popup_opened');
-  root.classList.remove('root_modal');
+  toggleModal(user);
 }
+
+const add = document.querySelector('.add');
+const addForm = add.querySelector('.add__form');
+add.querySelector('.popup__close').addEventListener('click', function(){toggleModal(add)});
+addForm.addEventListener('submit', addNewItem);
+document.querySelector('.profile__add-button').addEventListener('click', function(){toggleModal(add)});
+
+
+const user = document.querySelector('.user');
+const userForm = user.querySelector('.user__form');
+user.querySelector('.popup__close').addEventListener('click', function(){toggleModal(user)});
+userForm.addEventListener('submit', editProfile);
+let nameProfile = document.querySelector('.profile__name');
+let jobProfile = document.querySelector('.profile__job');
+let nameInput = userForm.querySelector('.user__input_value_name');
+let jobInput = userForm.querySelector('.user__input_value_job');
+document.querySelector('.profile__edit-button').addEventListener('click', function(){
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
+  toggleModal(user);
+});
+
+
+// let editButton = document.querySelector('.profile__edit-button');
+// let nameProfile = document.querySelector('.profile__name');
+// let jobProfile = document.querySelector('.profile__job');
+
+// let popup = document.querySelector('.popup');
+// let closeButton = document.querySelector('.popup__close');
+
+// let formElement = document.querySelector('.popup__form');
+// let nameInput = formElement.querySelector('.popup__input_value_name');
+// let jobInput = formElement.querySelector('.popup__input_value_job');
+
+// function openModalProfile() {
+//   nameInput.value = nameProfile.textContent;
+//   jobInput.value = jobProfile.textContent;
+//   popup.classList.add('popup_opened');
+//   root.classList.add('root_modal');
+// }
+
+
+
+// function formSubmitHandler(evt) {
+//   evt.preventDefault();
+//   nameProfile.textContent = nameInput.value;
+//   jobProfile.textContent = jobInput.value;
+//   popup.classList.remove('popup_opened');
+//   root.classList.remove('root_modal');
+// }
 
 // при загрузке
 // добавляем все карточки на страницу
@@ -110,6 +127,7 @@ initialCards.forEach(addItem);
 
 // устанавливаем обработчики
 // formElement.addEventListener('submit', formSubmitHandler);
-document.querySelector('.profile__edit-button').addEventListener('click', toggleModal(profile));
-editButton.addEventListener('click', toggleModal(add));
+//document.querySelector('.profile__edit-button').addEventListener('click', toggleModal(document.querySelector('.profile')));
+
+//editButton.addEventListener('click', toggleModal(add));
 //closeButton.addEventListener('click', closeModal);
