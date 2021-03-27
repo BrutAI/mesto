@@ -25,8 +25,6 @@ const initialCards = [
   }
 ];
 
-const elementsItems = document.querySelector('.elements__items');
-
 openGallery = element => {
   const templateGallery = document.querySelector('.template-gallery').content;
   const gallery = templateGallery.querySelector('.gallery').cloneNode(true);
@@ -38,7 +36,7 @@ openGallery = element => {
 }
 
 addItem = (element, place='end') => {
-  console.log(element);
+  const elementsItems = document.querySelector('.elements__items');
   const template = document.querySelector('.template').content;
   const elementsItem = template.querySelector('.elements__item').cloneNode(true);
   elementsItem.querySelector('.elements__image').src = element.link;
@@ -51,16 +49,9 @@ addItem = (element, place='end') => {
     else elementsItems.prepend(elementsItem);
 }
 
-function closeModal() {
-  popup.classList.remove('popup_opened');
-  root.classList.remove('root_modal');
-}
-
-function openModalAddNew() {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-  popup.classList.add('popup_opened');
-  root.classList.add('root_modal');
+function toggleModal(modal) {
+  modal.classList.toggle('popup_opened');
+  document.querySelector('.root').classList.toggle('root_modal');
 }
 
 addNewItem = evt => {
@@ -68,15 +59,22 @@ addNewItem = evt => {
   const titleInput = formNewItem.querySelector('.popup__input_value_title').value;
   const linkInput = formNewItem.querySelector('.popup__input_value_link').value;
   if (titleInput!==''&&linkInput!=='') addItem({name:titleInput, link:linkInput});
-  closeModal();
+  toggleModal();
 }
 
-const formNewItem = document.querySelector('.popup__form-new-item');
-formNewItem.addEventListener('submit', addNewItem);
+function openModalAdd() {
+  const add = document.querySelector('.add');
+  const addForm = add.querySelector('.add__form');
+  toggleModal(add);
+  addForm.addEventListener('submit', addNewItem);
+}
 
-initialCards.forEach(addItem);
 
-let root = document.querySelector('.root');
+
+
+
+
+
 
 let editButton = document.querySelector('.profile__edit-button');
 let nameProfile = document.querySelector('.profile__name');
@@ -89,7 +87,7 @@ let formElement = document.querySelector('.popup__form');
 let nameInput = formElement.querySelector('.popup__input_value_name');
 let jobInput = formElement.querySelector('.popup__input_value_job');
 
-function openModal() {
+function openModalProfile() {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   popup.classList.add('popup_opened');
@@ -106,6 +104,12 @@ function formSubmitHandler(evt) {
   root.classList.remove('root_modal');
 }
 
+// при загрузке
+// добавляем все карточки на страницу
+initialCards.forEach(addItem);
+
+// устанавливаем обработчики
 // formElement.addEventListener('submit', formSubmitHandler);
-editButton.addEventListener('click', openModal);
-closeButton.addEventListener('click', closeModal);
+document.querySelector('.profile__edit-button').addEventListener('click', toggleModal(profile));
+editButton.addEventListener('click', toggleModal(add));
+//closeButton.addEventListener('click', closeModal);
