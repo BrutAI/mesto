@@ -56,11 +56,11 @@ function toggleModal(modal) {
 
 addNewItem = evt => {
   evt.preventDefault();
-  const titleInput = document.querySelector('.add__input_value_title').value;
-  const linkInput = document.querySelector('.add__input_value_link').value;
+  const titleInput = document.querySelector('.popup__input_value_title').value;
+  const linkInput = document.querySelector('.popup__input_value_link').value;
   if (titleInput!==''&&linkInput!=='') addItem({name:titleInput, link:linkInput});
-  document.querySelector('.add__input_value_title').value = '';
-  document.querySelector('.add__input_value_link').value = '';
+  document.querySelector('.popup__input_value_title').value = '';
+  document.querySelector('.popup__input_value_link').value = '';
   toggleModal(document.querySelector('.add'));
 }
 
@@ -84,8 +84,8 @@ user.querySelector('.popup__close').addEventListener('click', function(){toggleM
 userForm.addEventListener('submit', editProfile);
 let nameProfile = document.querySelector('.profile__name');
 let jobProfile = document.querySelector('.profile__job');
-let nameInput = userForm.querySelector('.user__input_value_name');
-let jobInput = userForm.querySelector('.user__input_value_job');
+let nameInput = userForm.querySelector('.popup__input_value_name');
+let jobInput = userForm.querySelector('.popup__input_value_job');
 document.querySelector('.profile__edit-button').addEventListener('click', function(){
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
