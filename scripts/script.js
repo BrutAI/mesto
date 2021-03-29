@@ -25,72 +25,94 @@ const initialCards = [
   }
 ];
 
-openGallery = element => {
-  const templateGallery = document.querySelector('.template-gallery').content;
-  const gallery = templateGallery.querySelector('.gallery').cloneNode(true);
-  gallery.querySelector('.gallery__image').src = element.link;
-  gallery.querySelector('.gallery__image').alt = element.name;
-  gallery.querySelector('.gallery__caption').textContent = element.name;
-  gallery.querySelector('.gallery__close').addEventListener('click', evt => evt.target.parentElement.parentElement.remove());
-  document.querySelector('.root').append(gallery);
+const gallery = document.querySelector('.gallery');
+const galleryImage = gallery.querySelector('.gallery__image');
+const galleryCaption = gallery.querySelector('.gallery__caption');
+
+const nameProfile = document.querySelector('.profile__name');
+const jobProfile = document.querySelector('.profile__job');
+
+const popup = document.querySelector('.popup');
+const closeButton = document.querySelector('.popup__close');
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+
+const user = popup.querySelector('.user');
+const nameInput = user.querySelector('.popup__input_value_name');
+const jobInput = user.querySelector('.popup__input_value_job');
+
+const add = popup.querySelector('.add');
+
+const toggleModal = () => {popup.classList.toggle('popup_opened')};
+
+// document.querySelector('.root').classList.toggle('root_modal');
+// убрал, но он был нужен что бы при октрытии модального окна фон не скролился, так же круче было)
+
+const openGallery = element => {
+  galleryImage.src = element.link;
+  galleryImage.alt = element.name;
+  galleryCaption.textContent = element.name;
+  toggleModal();
 }
 
-addItem = (element, place='end') => {
-  const elementsItems = document.querySelector('.elements__items');
+const createCard = element => {
   const template = document.querySelector('.template').content;
   const elementsItem = template.querySelector('.elements__item').cloneNode(true);
-  elementsItem.querySelector('.elements__image').src = element.link;
-  elementsItem.querySelector('.elements__image').alt = element.name;
-  elementsItem.querySelector('.elements__name').textContent = element.name;
-  elementsItem.querySelector('.elements__like').addEventListener('click', evt => evt.target.classList.toggle('elements__like-active'));
-  elementsItem.querySelector('.elements__remove').addEventListener('click', evt => evt.target.parentElement.remove());
-  elementsItem.querySelector('.elements__image').addEventListener('click', () => openGallery(element));
+  const elementsImage = elementsItem.querySelector('.elements__image');
+  const elementsName = elementsItem.querySelector('.elements__name');
+  const elementsLike = elementsItem.querySelector('.elements__like');
+  const elementsRemove = elementsItem.querySelector('.elements__remove');
+
+  elementsImage.src = element.link;
+  elementsImage.alt = element.name;
+  elementsName.textContent = element.name;
+
+  elementsImage.addEventListener('click', () => openGallery(element));
+  elementsLike.addEventListener('click', evt => evt.target.classList.toggle('elements__like-active'));
+  elementsRemove.addEventListener('click', evt => evt.target.parentElement.remove());
+
+  return elementsItem;
+}
+
+const addItem = (element, place='end') => {
+  const elementsItems = document.querySelector('.elements__items');
+  const elementsItem = createCard(element);
   if (place!=='end') elementsItems.append(elementsItem);
     else elementsItems.prepend(elementsItem);
 }
 
-function toggleModal(modal) {
-  modal.classList.toggle('popup_opened');
-  document.querySelector('.root').classList.toggle('root_modal');
-}
-
-addNewItem = evt => {
+const addNewItem = evt => {
   evt.preventDefault();
-  const titleInput = document.querySelector('.popup__input_value_title').value;
-  const linkInput = document.querySelector('.popup__input_value_link').value;
-  if (titleInput!==''&&linkInput!=='') addItem({name:titleInput, link:linkInput});
-  document.querySelector('.popup__input_value_title').value = '';
-  document.querySelector('.popup__input_value_link').value = '';
-  toggleModal(document.querySelector('.add'));
+  const titleInput = document.querySelector('.popup__input_value_title');
+  const linkInput = document.querySelector('.popup__input_value_link');
+  if (titleInput.value!==''&&linkInput.value!=='') addItem({name:titleInput.value, link:linkInput.value});
+  titleInput.value = '';
+  linkInput.value = '';
+  toggleModal();
 }
 
-editProfile = evt => {
+const editProfile = evt => {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
   toggleModal(user);
 }
 
-const add = document.querySelector('.add');
-const addForm = add.querySelector('.add__form');
-add.querySelector('.popup__close').addEventListener('click', function(){toggleModal(add)});
-addForm.addEventListener('submit', addNewItem);
-document.querySelector('.profile__add-button').addEventListener('click', function(){toggleModal(add)});
+add.addEventListener('submit', evt => addNewItem(evt));
+user.addEventListener('submit', evt => editProfile(evt));
+closeButton.addEventListener('click', toggleModal);
 
-
-const user = document.querySelector('.user');
-const userForm = user.querySelector('.user__form');
-user.querySelector('.popup__close').addEventListener('click', function(){toggleModal(user)});
-userForm.addEventListener('submit', editProfile);
-let nameProfile = document.querySelector('.profile__name');
-let jobProfile = document.querySelector('.profile__job');
-let nameInput = userForm.querySelector('.popup__input_value_name');
-let jobInput = userForm.querySelector('.popup__input_value_job');
-document.querySelector('.profile__edit-button').addEventListener('click', function(){
+editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   toggleModal(user);
 });
 
+addButton.addEventListener('click', () => {
+  toggleModal();
+});
+
 initialCards.forEach(addItem);
+
+
 
