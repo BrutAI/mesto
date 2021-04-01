@@ -43,7 +43,7 @@ const jobInput = user.querySelector('.popup__input_value_job');
 
 const add = popup.querySelector('.add');
 
-const toggleModal = () => {popup.classList.toggle('popup_opened')};
+const toggleModal = () => {popup.classList.add('popup_opened')};
 
 // document.querySelector('.root').classList.toggle('root_modal');
 // убрал, но он был нужен что бы при октрытии модального окна фон не скролился, так же круче было)
@@ -52,6 +52,7 @@ const openGallery = element => {
   galleryImage.src = element.link;
   galleryImage.alt = element.name;
   galleryCaption.textContent = element.name;
+  gallery.classList.add('gallery_active');
   toggleModal();
 }
 
