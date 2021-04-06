@@ -45,6 +45,7 @@ const add = popup.querySelector('.add');
 
 const toggleModal = () => {popup.classList.add('popup_opened')};
 
+let wasOpened = '';
 // document.querySelector('.root').classList.toggle('root_modal');
 // убрал, но он был нужен что бы при октрытии модального окна фон не скролился, так же круче было)
 
@@ -101,7 +102,7 @@ const editProfile = evt => {
 
 add.addEventListener('submit', evt => addNewItem(evt));
 user.addEventListener('submit', evt => editProfile(evt));
-closeButton.addEventListener('click', toggleModal);
+closeButton.addEventListener('click', () => popup.classList.remove('popup_opened'));
 
 editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
