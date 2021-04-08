@@ -30,23 +30,29 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
   <section class="popup">
-    <div class="popup__container">
-      <form action="index.html" class="popup__form user" name="user">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_value_name" placeholder="Имя" name="name">
-        <input type="text" class="popup__input popup__input_value_job" placeholder="Работа" name="job">
-        <button class="popup__submite" type="submit">Сохранить</button>
-      </form>
-      <form action="index.html" class="popup__form add" name="add">
-        <h2 class="popup__title">Новое место</h2>
-        <input type="text" class="popup__input popup__input_value_title" placeholder="Название" name="title">
-        <input type="text" class="popup__input popup__input_value_link" placeholder="Ссылка на картинку" name="link">
-        <button class="popup__submite" type="submit">Сохранить</button>
-      </form>
-      <figure class="gallery">
-        <img src="#" alt="" class="gallery__image">
-        <figcaption class="gallery__caption"></figcaption>
-      </figure>
+    <div class="popup__wrapper">
+      <div class="popup__container user">
+        <form action="index.html" class="popup__form" name="user">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" class="popup__input popup__input_value_name" placeholder="Имя" name="name">
+          <input type="text" class="popup__input popup__input_value_job" placeholder="Работа" name="job">
+          <button class="popup__submite" type="submit">Сохранить</button>
+        </form>
+      </div>
+      <div class="popup__container add">
+        <form action="index.html" class="popup__form" name="add">
+          <h2 class="popup__title">Новое место</h2>
+          <input type="text" class="popup__input popup__input_value_title" placeholder="Название" name="title">
+          <input type="text" class="popup__input popup__input_value_link" placeholder="Ссылка на картинку" name="link">
+          <button class="popup__submite" type="submit">Сохранить</button>
+        </form>
+      </div>
+      <div class="gallery">
+        <figure class="gallery__image-wrapper">
+          <img src="#" alt="" class="gallery__image">
+          <figcaption class="gallery__caption"></figcaption>
+        </figure>
+      </div>
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
   </section>

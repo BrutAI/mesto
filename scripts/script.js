@@ -43,9 +43,15 @@ const jobInput = user.querySelector('.popup__input_value_job');
 
 const add = popup.querySelector('.add');
 
-const toggleModal = () => {popup.classList.add('popup_opened')};
+const openModal = (modal) => {
+  modal === 'user' ?  user.classList.add('popup__container_opened') : user.classList.remove('popup__container_opened');
+  modal === 'add' ?  add.classList.add('popup__container_opened') : add.classList.remove('popup__container_opened');
+  modal === 'gallery' ?  gallery.classList.add('gallery_opened') : gallery.classList.remove('gallery_opened');
+  popup.classList.add('popup_opened');
+};
 
-let wasOpened = '';
+const closeModal = () => popup.classList.remove('popup_opened');
+
 // document.querySelector('.root').classList.toggle('root_modal');
 // убрал, но он был нужен что бы при октрытии модального окна фон не скролился, так же круче было)
 
@@ -53,8 +59,8 @@ const openGallery = element => {
   galleryImage.src = element.link;
   galleryImage.alt = element.name;
   galleryCaption.textContent = element.name;
-  gallery.classList.add('gallery_active');
-  toggleModal();
+  gallery.classList.add('gallery_opened');
+  openModal('gallery');
 }
 
 const createCard = element => {
@@ -90,29 +96,31 @@ const addNewItem = evt => {
   if (titleInput.value!==''&&linkInput.value!=='') addItem({name:titleInput.value, link:linkInput.value});
   titleInput.value = '';
   linkInput.value = '';
-  toggleModal();
+  closeModal();
 }
 
 const editProfile = evt => {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  toggleModal(user);
+  closeModal();
 }
-
-add.addEventListener('submit', evt => addNewItem(evt));
-user.addEventListener('submit', evt => editProfile(evt));
-closeButton.addEventListener('click', () => popup.classList.remove('popup_opened'));
 
 editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
-  toggleModal(user);
+  user.classList.add('popup__container_opened');
+  openModal('user');
 });
 
 addButton.addEventListener('click', () => {
-  toggleModal();
+  add.classList.add('popup__container_opened');
+  openModal('add');
 });
+
+add.addEventListener('submit', evt => addNewItem(evt));
+user.addEventListener('submit', evt => editProfile(evt));
+closeButton.addEventListener('click', closeModal);
 
 initialCards.forEach(addItem);
 
