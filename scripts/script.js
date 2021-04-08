@@ -25,42 +25,34 @@ const initialCards = [
   }
 ];
 
-const gallery = document.querySelector('.gallery');
-const galleryImage = gallery.querySelector('.gallery__image');
-const galleryCaption = gallery.querySelector('.gallery__caption');
-
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
-
-const popup = document.querySelector('.popup');
-const closeButton = document.querySelector('.popup__close');
+const elementsItems = document.querySelector('.elements__items');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
-const user = popup.querySelector('.user');
+const user = document.querySelector('.user');
 const nameInput = user.querySelector('.popup__input_value_name');
 const jobInput = user.querySelector('.popup__input_value_job');
+const userCloseButton = user.querySelector('.popup__close');
 
-const add = popup.querySelector('.add');
+const add = document.querySelector('.add');
+const titleInput = add.querySelector('.popup__input_value_title');
+const linkInput = add.querySelector('.popup__input_value_link');
+const addCloseButton = add.querySelector('.popup__close');
 
-const openModal = (modal) => {
-  modal === 'user' ?  user.classList.add('popup__container_opened') : user.classList.remove('popup__container_opened');
-  modal === 'add' ?  add.classList.add('popup__container_opened') : add.classList.remove('popup__container_opened');
-  modal === 'gallery' ?  gallery.classList.add('gallery_opened') : gallery.classList.remove('gallery_opened');
-  popup.classList.add('popup_opened');
-};
+const gallery = document.querySelector('.gallery');
+const image = gallery.querySelector('.popup__image');
+const caption = gallery.querySelector('.popup__caption');
+const galleryCloseButton = gallery.querySelector('.popup__close');
 
-const closeModal = () => popup.classList.remove('popup_opened');
-
-// document.querySelector('.root').classList.toggle('root_modal');
-// убрал, но он был нужен что бы при октрытии модального окна фон не скролился, так же круче было)
+const toggleModal = (modal) => modal.classList.toggle('popup_opened');
 
 const openGallery = element => {
-  galleryImage.src = element.link;
-  galleryImage.alt = element.name;
-  galleryCaption.textContent = element.name;
-  gallery.classList.add('gallery_opened');
-  openModal('gallery');
+  image.src = element.link;
+  image.alt = element.name;
+  caption.textContent = element.name;
+  toggleModal(gallery);
 }
 
 const createCard = element => {
@@ -83,7 +75,6 @@ const createCard = element => {
 }
 
 const addItem = (element, place='end') => {
-  const elementsItems = document.querySelector('.elements__items');
   const elementsItem = createCard(element);
   if (place!=='end') elementsItems.append(elementsItem);
     else elementsItems.prepend(elementsItem);
@@ -91,38 +82,34 @@ const addItem = (element, place='end') => {
 
 const addNewItem = evt => {
   evt.preventDefault();
-  const titleInput = document.querySelector('.popup__input_value_title');
-  const linkInput = document.querySelector('.popup__input_value_link');
   if (titleInput.value!==''&&linkInput.value!=='') addItem({name:titleInput.value, link:linkInput.value});
   titleInput.value = '';
   linkInput.value = '';
-  closeModal();
+  toggleModal(add);
 }
 
 const editProfile = evt => {
   evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  closeModal();
+  toggleModal(user);
 }
 
 editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
-  user.classList.add('popup__container_opened');
-  openModal('user');
+  toggleModal(user);
 });
 
 addButton.addEventListener('click', () => {
-  add.classList.add('popup__container_opened');
-  openModal('add');
+  toggleModal(add);
 });
 
 add.addEventListener('submit', evt => addNewItem(evt));
 user.addEventListener('submit', evt => editProfile(evt));
-closeButton.addEventListener('click', closeModal);
+userCloseButton.addEventListener('click', () => toggleModal(user));
+addCloseButton.addEventListener('click', () => toggleModal(add));
+galleryCloseButton.addEventListener('click', () => toggleModal(gallery));
 
 initialCards.forEach(addItem);
-
-
 
