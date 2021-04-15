@@ -33,9 +33,15 @@
     <div class="popup__container">
       <form action="index.html" class="popup__form" name="user">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__input popup__input_value_name" placeholder="Имя" name="name">
-        <input type="text" class="popup__input popup__input_value_job" placeholder="Работа" name="job">
-        <button class="popup__submite" type="submit">Сохранить</button>
+        <label class="popup__field">
+          <input type="text" class="popup__input popup__input_value_name" id="input-name" placeholder="Имя" name="name" required minlength="2" maxlength="40">
+          <span class="popup__error error-input-name">1</span>
+        </label>
+        <label class="popup__field">
+          <input type="text" class="popup__input popup__input_value_job" id="input-job" placeholder="Работа" name="job" required minlength="2" maxlength="200">
+          <span class="popup__error error-input-job">2</span>
+        </label>
+        <button class="popup__submite popup__submite-disabled" type="submit">Сохранить</button>
       </form>
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
@@ -44,8 +50,14 @@
     <div class="popup__container">
       <form action="index.html" class="popup__form" name="add">
         <h2 class="popup__title">Новое место</h2>
-        <input type="text" class="popup__input popup__input_value_title" placeholder="Название" name="title">
-        <input type="text" class="popup__input popup__input_value_link" placeholder="Ссылка на картинку" name="link">
+        <label class="popup__field">
+          <input type="text" class="popup__input popup__input_value_title" id="input-title" placeholder="Название" name="title" required minlength="2" maxlength="30">
+          <span class="popup__error error-input-title">3</span>
+        </label>
+        <label class="popup__field">
+          <input type="url" class="popup__input popup__input_value_link" id="input-link" placeholder="Ссылка на картинку" name="link" required>
+          <span class="popup__error error-input-link">4</span>
+        </label>
         <button class="popup__submite" type="submit">Сохранить</button>
       </form>
       <button type="button" class="popup__close" aria-label="Закрыть"></button>

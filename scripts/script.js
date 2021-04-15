@@ -113,3 +113,13 @@ galleryCloseButton.addEventListener('click', () => toggleModal(gallery));
 
 initialCards.forEach(addItem);
 
+user.addEventListener('click', (evt) => {
+  if (evt.target === user) toggleModal(user);
+});
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') toggleModal(user);
+});
+
+//const userContainer = user.querySelector('.popup__container');
+//user.addEventListener('click', () => toggleModal(user));
