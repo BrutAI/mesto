@@ -48,13 +48,9 @@ const galleryCloseButton = gallery.querySelector('.popup__close');
 
 const addEscHandler = (evt) => {
   if (evt.key === 'Escape') {
-    document.removeEventListener('keydown', addEscHandler);
     const popup = document.querySelector('.popup_opened');
     toggleModal(popup);
-}
-
-const addEsc = () => {
-  document.addEventListener('keydown', addEscHandler);
+  }
 }
 
 const toggleModal = (modal) => {
@@ -62,11 +58,10 @@ const toggleModal = (modal) => {
     document.removeEventListener('keydown', addEscHandler);
     modal.classList.remove('popup_opened');
   } else {
-    document.removeEventListener('keydown', addEscHandler);
+    document.addEventListener('keydown', addEscHandler);
     modal.classList.add('popup_opened');
   }
 }
-
 
 const openGallery = element => {
   image.src = element.link;
@@ -102,7 +97,7 @@ const addItem = (element, place='end') => {
 
 const addNewItem = evt => {
   evt.preventDefault();
-  if (titleInput.value!==''&&linkInput.value!=='') addItem({name:titleInput.value, link:linkInput.value});
+  addItem({name:titleInput.value, link:linkInput.value});
   titleInput.value = '';
   linkInput.value = '';
   toggleModal(add);
@@ -118,6 +113,8 @@ const editProfile = evt => {
 editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
+  const buttonElement = user.querySelector('.popup__submite');
+  toggleButtonState([nameInput, jobInput], buttonElement, 'popup__submite_disabled');
   toggleModal(user);
 });
 
@@ -133,7 +130,7 @@ galleryCloseButton.addEventListener('click', () => toggleModal(gallery));
 
 initialCards.forEach(addItem);
 
-const closePopup = () => {
+const closeOverlay = () => {
   const popups = Array.from(document.querySelectorAll('.popup'));
   popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
@@ -142,4 +139,4 @@ const closePopup = () => {
   });
 }
 
-closePopup();
+closeOverlay();
