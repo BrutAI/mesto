@@ -46,7 +46,27 @@ const image = gallery.querySelector('.popup__image');
 const caption = gallery.querySelector('.popup__caption');
 const galleryCloseButton = gallery.querySelector('.popup__close');
 
-const toggleModal = (modal) => modal.classList.toggle('popup_opened');
+const addEscHandler = (evt) => {
+  if (evt.key === 'Escape') {
+    document.removeEventListener('keydown', addEscHandler);
+    const popup = document.querySelector('.popup_opened');
+    toggleModal(popup);
+}
+
+const addEsc = () => {
+  document.addEventListener('keydown', addEscHandler);
+}
+
+const toggleModal = (modal) => {
+  if (modal.classList.contains('popup_opened')) {
+    document.removeEventListener('keydown', addEscHandler);
+    modal.classList.remove('popup_opened');
+  } else {
+    document.removeEventListener('keydown', addEscHandler);
+    modal.classList.add('popup_opened');
+  }
+}
+
 
 const openGallery = element => {
   image.src = element.link;
@@ -113,13 +133,13 @@ galleryCloseButton.addEventListener('click', () => toggleModal(gallery));
 
 initialCards.forEach(addItem);
 
-user.addEventListener('click', (evt) => {
-  if (evt.target === user) toggleModal(user);
-});
+const closePopup = () => {
+  const popups = Array.from(document.querySelectorAll('.popup'));
+  popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      if (evt.target === popup) toggleModal(popup);
+    });
+  });
+}
 
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') toggleModal(user);
-});
-
-//const userContainer = user.querySelector('.popup__container');
-//user.addEventListener('click', () => toggleModal(user));
+closePopup();
