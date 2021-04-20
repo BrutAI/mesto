@@ -40,12 +40,10 @@ const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
 }
 
 const setEventListeners = (formElement, dict) => {
-  formElement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-  });
-
   const inputList = Array.from(formElement.querySelectorAll(dict.inputSelector));
   const buttonElement = formElement.querySelector(dict.submitButtonSelector);
+
+  toggleButtonState(inputList, buttonElement, dict.inactiveButtonClass);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', (evt) => {
@@ -53,14 +51,16 @@ const setEventListeners = (formElement, dict) => {
       toggleButtonState(inputList, buttonElement, dict.inactiveButtonClass);
     });
   });
-
-  toggleButtonState(inputList, buttonElement, dict.inactiveButtonClass);
 }
 
 const enableValidation = (dict) => {
   const formList = Array.from(document.querySelectorAll(dict.formSelector));
 
   formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+
     setEventListeners(formElement, dict);
   });
 }

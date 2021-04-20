@@ -34,17 +34,17 @@ const addButton = document.querySelector('.profile__add-button');
 const user = document.querySelector('.user');
 const nameInput = user.querySelector('.popup__input_value_name');
 const jobInput = user.querySelector('.popup__input_value_job');
-const userCloseButton = user.querySelector('.popup__close');
+const userButtonElement = user.querySelector('.popup__submite');
 
 const add = document.querySelector('.add');
+const addForm = add.querySelector('.popup__form');
 const titleInput = add.querySelector('.popup__input_value_title');
 const linkInput = add.querySelector('.popup__input_value_link');
-const addCloseButton = add.querySelector('.popup__close');
+const addButtonElement = add.querySelector('.popup__submite');
 
 const gallery = document.querySelector('.gallery');
 const image = gallery.querySelector('.popup__image');
 const caption = gallery.querySelector('.popup__caption');
-const galleryCloseButton = gallery.querySelector('.popup__close');
 
 const addEscHandler = (evt) => {
   if (evt.key === 'Escape') {
@@ -98,8 +98,8 @@ const addItem = (element, place='end') => {
 const addNewItem = evt => {
   evt.preventDefault();
   addItem({name:titleInput.value, link:linkInput.value});
-  titleInput.value = '';
-  linkInput.value = '';
+  addForm.reset();
+  toggleButtonState([nameInput, jobInput], addButtonElement, 'popup__submite-disabled');
   toggleModal(add);
 }
 
@@ -114,7 +114,7 @@ editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   const buttonElement = user.querySelector('.popup__submite');
-  toggleButtonState([nameInput, jobInput], buttonElement, 'popup__submite_disabled');
+  toggleButtonState([nameInput, jobInput], userButtonElement, 'popup__submite-disabled');
   toggleModal(user);
 });
 
@@ -124,9 +124,6 @@ addButton.addEventListener('click', () => {
 
 add.addEventListener('submit', evt => addNewItem(evt));
 user.addEventListener('submit', evt => editProfile(evt));
-userCloseButton.addEventListener('click', () => toggleModal(user));
-addCloseButton.addEventListener('click', () => toggleModal(add));
-galleryCloseButton.addEventListener('click', () => toggleModal(gallery));
 
 initialCards.forEach(addItem);
 
@@ -134,7 +131,8 @@ const closeOverlay = () => {
   const popups = Array.from(document.querySelectorAll('.popup'));
   popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
-      if (evt.target === popup) toggleModal(popup);
+      if (evt.target.classList.contains('popup_opened')) toggleModal(popup);
+      if (evt.target.classList.contains('popup__close')) toggleModal(popup);
     });
   });
 }
