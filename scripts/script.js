@@ -70,27 +70,46 @@ const openGallery = element => {
   toggleModal(gallery);
 }
 
-const createCard = element => {
-  const template = document.querySelector('.template').content;
-  const elementsItem = template.querySelector('.elements__item').cloneNode(true);
-  const elementsImage = elementsItem.querySelector('.elements__image');
-  const elementsName = elementsItem.querySelector('.elements__name');
-  const elementsLike = elementsItem.querySelector('.elements__like');
-  const elementsRemove = elementsItem.querySelector('.elements__remove');
+class Card {
+  constructor(element, template) {
+    this._link = element.link;
+    this._name = element.name;
+    this._template = template;
+  }
 
-  elementsImage.src = element.link;
-  elementsImage.alt = element.name;
-  elementsName.textContent = element.name;
+  _getTemplate() {
+    const cardElement = document
+      .querySelector(this._template)
+      .content
+      .querySelector('.elements__item')
+      .cloneNode(true);
 
-  elementsImage.addEventListener('click', () => openGallery(element));
-  elementsLike.addEventListener('click', evt => evt.target.classList.toggle('elements__like-active'));
-  elementsRemove.addEventListener('click', evt => evt.target.parentElement.remove());
+    return cardElement;
+  }
 
-  return elementsItem;
+  generateCard() {
+    this._element = this._getTemplate();
+
+    const _elementsImage = this._element.querySelector('.elements__image');
+    const _elementsName = this._element.querySelector('.elements__name');
+    const _elementsLike = this._element.querySelector('.elements__like');
+    const _elementsRemove = this._element.querySelector('.elements__remove');
+
+    _elementsImage.src = this._link;
+    _elementsImage.alt = this._name;
+    _elementsName.textContent = this._name;
+
+    _elementsImage.addEventListener('click', () => openGallery(this._element));
+    _elementsLike.addEventListener('click', evt => evt.target.classList.toggle('elements__like-active'));
+    _elementsRemove.addEventListener('click', evt => evt.target.parentElement.remove());
+
+    return this._element;
+  }
 }
 
 const addItem = (element, place='end') => {
-  const elementsItem = createCard(element);
+  const card = new Card(element, '.template');
+  const elementsItem = card.generateCard();
   if (place!=='end') elementsItems.append(elementsItem);
     else elementsItems.prepend(elementsItem);
 }
@@ -138,3 +157,4 @@ const closeOverlay = () => {
 }
 
 closeOverlay();
+
