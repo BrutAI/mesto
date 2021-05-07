@@ -5,7 +5,6 @@ const showInputError = (formElement, inputElement, errorMessage, dict) => {
   inputElement.classList.add(dict.inputErrorClass);
 }
 
-
 const hideInputError = (formElement, inputElement, dict) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = '';
@@ -66,26 +65,12 @@ const enableValidation = (dict) => {
   });
 }
 
-class FormValidation {
-  constructor(settings, formElement) {
-    this._settings = settings;
-    this.formElement = formElement;
-  }
-}
-
-const settings = {
+enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submite',
   inactiveButtonClass: 'popup__submite-disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_active'
-};
+});
 
-const userFormElement = document.querySelector('.user + .popup__form');
-const userFormValidator = new FormValidation(settings, userFormElement);
-userFormValidator.enableValidation();
-
-const addFormElement = document.querySelector('.add + .popup__form');
-const addCardFormValidator = new FormValidation(settings, addFormElement);
-addCardFormValidator.enableValidation();
