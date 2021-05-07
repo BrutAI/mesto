@@ -5,6 +5,7 @@ const showInputError = (formElement, inputElement, errorMessage, dict) => {
   inputElement.classList.add(dict.inputErrorClass);
 }
 
+
 const hideInputError = (formElement, inputElement, dict) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   errorElement.textContent = '';

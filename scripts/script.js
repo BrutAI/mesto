@@ -25,6 +25,7 @@ const initialCards = [
   }
 ];
 
+
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
 const elementsItems = document.querySelector('.elements__items');
