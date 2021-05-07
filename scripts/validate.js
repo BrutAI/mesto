@@ -65,12 +65,26 @@ const enableValidation = (dict) => {
   });
 }
 
-enableValidation({
+class FormValidation {
+  constructor(settings, formElement) {
+    this._settings = settings;
+    this.formElement = formElement;
+  }
+}
+
+const settings = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submite',
   inactiveButtonClass: 'popup__submite-disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_active'
-});
+};
 
+const userFormElement = document.querySelector('.user + .popup__form');
+const userFormValidator = new FormValidation(settings, userFormElement);
+userFormValidator.enableValidation();
+
+const addFormElement = document.querySelector('.add + .popup__form');
+const addCardFormValidator = new FormValidation(settings, addFormElement);
+addCardFormValidator.enableValidation();
