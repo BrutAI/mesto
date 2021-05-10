@@ -1,3 +1,4 @@
 .popup__error_active {
   display: block;
+  z-index: 1;
 }

@@ -27,7 +27,7 @@
     </section>
   </main>
   <footer class="footer center">
-    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
   </footer>
   <section class="popup user">
     <div class="popup__container">
@@ -38,7 +38,7 @@
           <span class="popup__error input-name-error"></span>
         </label>
         <label class="popup__field">
-          <input type="text" class="popup__input popup__input_value_job" id="input-job" placeholder="Работа" name="job" required minlength="2" maxlength="200">
+          <input type="text" class="popup__input popup__input_value_job" id="input-job" placeholder="О себе" name="job" required minlength="2" maxlength="200">
           <span class="popup__error input-job-error"></span>
         </label>
         <button class="popup__submite" type="submit">Сохранить</button>
@@ -74,7 +74,7 @@
   </section>
   <template class="template">
     <li class="elements__item">
-      <img src="#" alt="" class="elements__image">
+      <img src="#" alt="" class="elements__image" onerror="this.parentElement.style.background = '#777';">
       <div class="elements__caption">
         <h2 class="elements__name"></h2>
         <button type="button" class="elements__like" aria-label="Поставить лайк"></button>

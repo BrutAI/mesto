@@ -130,7 +130,8 @@ initialCards.forEach(addItem);
 const closeOverlay = () => {
   const popups = Array.from(document.querySelectorAll('.popup'));
   popups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
+    popup.addEventListener('mousedown', (evt) => {
+      //console.log(evt.target);
       if (evt.target.classList.contains('popup_opened')) toggleModal(popup);
       if (evt.target.classList.contains('popup__close')) toggleModal(popup);
     });

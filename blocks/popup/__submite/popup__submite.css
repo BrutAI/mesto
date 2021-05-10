@@ -9,6 +9,7 @@
   margin-top: 37px;
   padding: 0;
   transition: opacity .2s ease-in-out;
+  cursor: pointer;
 }
 
 .popup__submite:hover {
