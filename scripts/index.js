@@ -1,3 +1,7 @@
+import {toggleModal} from './utils.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -32,65 +36,18 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 const user = document.querySelector('.user');
+const userForm = user.querySelector('.popup__form');
 const nameInput = user.querySelector('.popup__input_value_name');
 const jobInput = user.querySelector('.popup__input_value_job');
-const userButtonElement = user.querySelector('.popup__submite');
 
 const add = document.querySelector('.add');
 const addForm = add.querySelector('.popup__form');
 const titleInput = add.querySelector('.popup__input_value_title');
 const linkInput = add.querySelector('.popup__input_value_link');
-const addButtonElement = add.querySelector('.popup__submite');
-
-const gallery = document.querySelector('.gallery');
-const image = gallery.querySelector('.popup__image');
-const caption = gallery.querySelector('.popup__caption');
-
-const addEscHandler = (evt) => {
-  if (evt.key === 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    toggleModal(popup);
-  }
-}
-
-const toggleModal = (modal) => {
-  if (modal.classList.contains('popup_opened')) {
-    document.removeEventListener('keydown', addEscHandler);
-    modal.classList.remove('popup_opened');
-  } else {
-    document.addEventListener('keydown', addEscHandler);
-    modal.classList.add('popup_opened');
-  }
-}
-
-const openGallery = element => {
-  image.src = element.link;
-  image.alt = element.name;
-  caption.textContent = element.name;
-  toggleModal(gallery);
-}
-
-const createCard = element => {
-  const template = document.querySelector('.template').content;
-  const elementsItem = template.querySelector('.elements__item').cloneNode(true);
-  const elementsImage = elementsItem.querySelector('.elements__image');
-  const elementsName = elementsItem.querySelector('.elements__name');
-  const elementsLike = elementsItem.querySelector('.elements__like');
-  const elementsRemove = elementsItem.querySelector('.elements__remove');
-
-  elementsImage.src = element.link;
-  elementsImage.alt = element.name;
-  elementsName.textContent = element.name;
-
-  elementsImage.addEventListener('click', () => openGallery(element));
-  elementsLike.addEventListener('click', evt => evt.target.classList.toggle('elements__like-active'));
-  elementsRemove.addEventListener('click', evt => evt.target.parentElement.remove());
-
-  return elementsItem;
-}
 
 const addItem = (element, place='end') => {
-  const elementsItem = createCard(element);
+  const card = new Card(element, '.template');
+  const elementsItem = card.generateCard();
   if (place!=='end') elementsItems.append(elementsItem);
     else elementsItems.prepend(elementsItem);
 }
@@ -99,7 +56,6 @@ const addNewItem = evt => {
   evt.preventDefault();
   addItem({name:titleInput.value, link:linkInput.value});
   addForm.reset();
-  toggleButtonState([nameInput, jobInput], addButtonElement, 'popup__submite-disabled');
   toggleModal(add);
 }
 
@@ -114,7 +70,6 @@ editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   const buttonElement = user.querySelector('.popup__submite');
-  toggleButtonState([nameInput, jobInput], userButtonElement, 'popup__submite-disabled');
   toggleModal(user);
 });
 
@@ -131,7 +86,6 @@ const closeOverlay = () => {
   const popups = Array.from(document.querySelectorAll('.popup'));
   popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
-      //console.log(evt.target);
       if (evt.target.classList.contains('popup_opened')) toggleModal(popup);
       if (evt.target.classList.contains('popup__close')) toggleModal(popup);
     });
@@ -139,3 +93,18 @@ const closeOverlay = () => {
 }
 
 closeOverlay();
+
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submite',
+  inactiveButtonClass: 'popup__submite-disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_active'
+};
+
+const addFormValidator = new FormValidator(settings, userForm);
+const editFormValidator = new FormValidator(settings, addForm);
+
+addFormValidator.enableValidation();
+editFormValidator.enableValidation();
