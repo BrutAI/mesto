@@ -45,9 +45,13 @@ const addForm = add.querySelector('.popup__form');
 const titleInput = add.querySelector('.popup__input_value_title');
 const linkInput = add.querySelector('.popup__input_value_link');
 
-const addItem = (element, place='end') => {
+const createCard = element => {
   const card = new Card(element, '.template');
-  const elementsItem = card.generateCard();
+  return card.generateCard();
+}
+
+const addItem = (element, place='end') => {
+  const elementsItem = createCard(element);
   if (place!=='end') elementsItems.append(elementsItem);
     else elementsItems.prepend(elementsItem);
 }
@@ -69,11 +73,11 @@ const editProfile = evt => {
 editButton.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
-  const buttonElement = user.querySelector('.popup__submite');
   toggleModal(user);
 });
 
 addButton.addEventListener('click', () => {
+  addFormValidator.resetValidation();
   toggleModal(add);
 });
 
@@ -103,8 +107,8 @@ const settings = {
   errorClass: 'popup__error_active'
 };
 
-const addFormValidator = new FormValidator(settings, userForm);
-const editFormValidator = new FormValidator(settings, addForm);
+const addFormValidator = new FormValidator(settings, addForm);
+const editFormValidator = new FormValidator(settings, userForm);
 
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
