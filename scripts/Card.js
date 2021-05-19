@@ -26,9 +26,9 @@ class Card {
   }
 
   _handleOpenGallery() {
-    image.src = this._link;
-    image.alt = this._name;
-    caption.textContent = this._name;
+    // image.src = this._link;
+    // image.alt = this._name;
+    // caption.textContent = this._name;
     toggleModal(gallery);
   }
 

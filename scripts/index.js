@@ -1,6 +1,8 @@
 import {toggleModal} from './utils.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
 
 const initialCards = [
   {
@@ -36,14 +38,18 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 const user = document.querySelector('.user');
-const userForm = user.querySelector('.popup__form');
+// const userForm = user.querySelector('.popup__form');
 const nameInput = user.querySelector('.popup__input_value_name');
 const jobInput = user.querySelector('.popup__input_value_job');
 
 const add = document.querySelector('.add');
-const addForm = add.querySelector('.popup__form');
+// const addForm = add.querySelector('.popup__form');
 const titleInput = add.querySelector('.popup__input_value_title');
 const linkInput = add.querySelector('.popup__input_value_link');
+
+const editProfilePopup = new PopupWithForm(user, function() => {
+
+});
 
 const createCard = element => {
   const card = new Card(element, '.template');
@@ -86,15 +92,15 @@ user.addEventListener('submit', evt => editProfile(evt));
 
 initialCards.forEach(addItem);
 
-const closeOverlay = () => {
-  const popups = Array.from(document.querySelectorAll('.popup'));
-  popups.forEach((popup) => {
-    popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) toggleModal(popup);
-      if (evt.target.classList.contains('popup__close')) toggleModal(popup);
-    });
-  });
-}
+// const closeOverlay = () => {
+//   const popups = Array.from(document.querySelectorAll('.popup'));
+//   popups.forEach((popup) => {
+//     popup.addEventListener('mousedown', (evt) => {
+//       if (evt.target.classList.contains('popup_opened')) toggleModal(popup);
+//       if (evt.target.classList.contains('popup__close')) toggleModal(popup);
+//     });
+//   });
+// }
 
 closeOverlay();
 
