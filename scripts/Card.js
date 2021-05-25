@@ -1,10 +1,11 @@
-import {gallery, image, caption, toggleModal} from './utils.js';
+// import {gallery, image, caption, toggleModal} from './utils.js';
 
-class Card {
-  constructor({name, link}, template) {
+export default class Card {
+  constructor({name, link}, template, handleCardClick) {
     this._link = link;
     this._name = name;
     this._template = template;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -25,12 +26,12 @@ class Card {
     this._element.remove();
   }
 
-  _handleOpenGallery() {
-    // image.src = this._link;
-    // image.alt = this._name;
-    // caption.textContent = this._name;
-    toggleModal(gallery);
-  }
+  // _handleOpenGallery() {
+  //   // image.src = this._link;
+  //   // image.alt = this._name;
+  //   // caption.textContent = this._name;
+  //   toggleModal(gallery);
+  // }
 
   _setEventListeners() {
     const elementsImage = this._element.querySelector('.elements__image');
@@ -42,7 +43,7 @@ class Card {
     elementsImage.alt = this._name;
     elementsName.textContent = this._name;
 
-    elementsImage.addEventListener('click', () => this._handleOpenGallery());
+    elementsImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
     elementsLike.addEventListener('click', this._handleLike);
     elementsRemove.addEventListener('click', () =>  this._handleRemove());
   }
@@ -55,5 +56,3 @@ class Card {
     return this._element;
   }
 }
-
-export default Card;
