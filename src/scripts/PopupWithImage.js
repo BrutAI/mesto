@@ -4,7 +4,6 @@ export default class PopupWithImage extends Popup {
     super(popupSelector);
     this._image = this._popupSelector.querySelector('.popup__image');
     this._caption = this._popupSelector.querySelector('.popup__caption');
-    console.log('конструктор', this._image);
   }
 
   open(url, text) {
@@ -12,6 +11,5 @@ export default class PopupWithImage extends Popup {
     this._image.alt = text;
     this._caption.textContent = text;
     super.open();
-    console.log('опен');
   }
 }

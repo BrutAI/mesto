@@ -1,4 +1,5 @@
-// import {nameProfile, jobProfile} from './utils.js';
+import '../pages/index.css';
+
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -45,20 +46,6 @@ const jobInput = user.querySelector('.popup__input_value_job');
 
 const add = document.querySelector('.add');
 const addForm = add.querySelector('.popup__form');
-const titleInput = add.querySelector('.popup__input_value_title');
-const linkInput = add.querySelector('.popup__input_value_link');
-
-const userInfo = new UserInfo({ name: '.popup__input_value_name', job: '.popup__input_value_job'});
-
-function editFormSubmiteHandler(data) {
-  userInfo.setUserInfo(data);
-}
-
-const editProfilePopup = new PopupWithForm('.user', editFormSubmiteHandler);
-editProfilePopup.setEventListeners();
-
-const popopWithImage = new PopupWithImage('.gallery');
-popopWithImage.setEventListeners();
 
 function cardImageClickHandler(url, text) {
   popopWithImage.open(url, text)
@@ -75,19 +62,24 @@ const addItem = (element, place='end') => {
     else elementsItems.prepend(elementsItem);
 }
 
-// const addNewItem = evt => {
-//   evt.preventDefault();
-//   addItem({name:titleInput.value, link:linkInput.value});
-//   addForm.reset();
-//   toggleModal(add);
-// }
+const userInfo = new UserInfo({ name: '.profile__name', job: '.profile__job'});
 
-// const editProfile = evt => {
-//   evt.preventDefault();
-//   nameProfile.textContent = nameInput.value;
-//   jobProfile.textContent = jobInput.value;
-//   toggleModal(user);
-// }
+function editFormSubmiteHandler(data) {
+  userInfo.setUserInfo(data);
+}
+
+const editProfilePopup = new PopupWithForm('.user', editFormSubmiteHandler);
+editProfilePopup.setEventListeners();
+
+function addFormSubmiteHandler(data) {
+  addItem(data);
+}
+
+const addImagePopup = new PopupWithForm('.add', addFormSubmiteHandler);
+addImagePopup.setEventListeners();
+
+const popopWithImage = new PopupWithImage('.gallery');
+popopWithImage.setEventListeners();
 
 editButton.addEventListener('click', () => {
 
@@ -96,31 +88,15 @@ editButton.addEventListener('click', () => {
   nameInput.value = data.name;
   jobInput.value = data.job;
 
-  //editFormValidator.resetValidation();
   editProfilePopup.open();
 });
 
 addButton.addEventListener('click', () => {
   addFormValidator.resetValidation();
-  //toggleModal(add);
+  addImagePopup.open();
 });
 
-add.addEventListener('submit', evt => addNewItem(evt));
-//user.addEventListener('submit', evt => editProfile(evt));
-
 initialCards.forEach(addItem);
-
-// const closeOverlay = () => {
-//   const popups = Array.from(document.querySelectorAll('.popup'));
-//   popups.forEach((popup) => {
-//     popup.addEventListener('mousedown', (evt) => {
-//       if (evt.target.classList.contains('popup_opened')) toggleModal(popup);
-//       if (evt.target.classList.contains('popup__close')) toggleModal(popup);
-//     });
-//   });
-// }
-
-//closeOverlay();
 
 const settings = {
   formSelector: '.popup__form',

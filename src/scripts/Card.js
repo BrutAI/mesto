@@ -1,5 +1,3 @@
-// import {gallery, image, caption, toggleModal} from './utils.js';
-
 export default class Card {
   constructor({name, link}, template, handleCardClick) {
     this._link = link;
@@ -25,13 +23,6 @@ export default class Card {
   _handleRemove() {
     this._element.remove();
   }
-
-  // _handleOpenGallery() {
-  //   // image.src = this._link;
-  //   // image.alt = this._name;
-  //   // caption.textContent = this._name;
-  //   toggleModal(gallery);
-  // }
 
   _setEventListeners() {
     const elementsImage = this._element.querySelector('.elements__image');
