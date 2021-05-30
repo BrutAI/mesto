@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isEnvProduction = process.env.MODE == 'production';
+
 module.exports = {
   entry: {main: './src/pages/index.js'},
   output: {
@@ -10,6 +12,7 @@ module.exports = {
     filename: 'main.js',
     publicPath: ''
   },
+  devtool: isEnvProduction ? false : 'cheap-module-source-map',
   mode: 'development',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),

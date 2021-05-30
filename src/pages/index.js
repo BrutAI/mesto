@@ -1,37 +1,13 @@
 import './index.css';
 
 import Card from '../components/Card.js';
+import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import {initialCards} from '../components/initialCards.js';
 
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
@@ -56,13 +32,13 @@ const createCard = element => {
   return card.generateCard();
 }
 
-const addItem = (element, place='end') => {
-  const elementsItem = createCard(element);
-  if (place!=='end') elementsItems.append(elementsItem);
-    else elementsItems.prepend(elementsItem);
-}
+// const addItem = (element, place='end') => {
+//   const elementsItem = createCard(element);
+//   if (place!=='end') elementsItems.append(elementsItem);
+//     else elementsItems.prepend(elementsItem);
+// }
 
-const userInfo = new UserInfo({ name: '.profile__name', job: '.profile__job'});
+const userInfo = new UserInfo({ name: '.profile__name', job: '.profile__job' });
 
 function editFormSubmiteHandler(data) {
   userInfo.setUserInfo(data);
@@ -96,7 +72,9 @@ addButton.addEventListener('click', () => {
   addImagePopup.open();
 });
 
-initialCards.forEach(addItem);
+//initialCards.forEach(addItem);
+const sectionCards = new Section({ initialCards, createCard }, '.elements__items');
+sectionCards.renderItems();
 
 const settings = {
   formSelector: '.popup__form',
