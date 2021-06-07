@@ -37,7 +37,7 @@
           <span class="popup__error user-input-name-error"></span>
         </label>
         <label class="popup__field">
-          <input type="text" class="popup__input popup__input_value_job" id="user-input-job" placeholder="О себе" name="job" required minlength="2" maxlength="200">
+          <input type="text" class="popup__input popup__input_value_job" id="user-input-job" placeholder="О себе" name="about" required minlength="2" maxlength="200">
           <span class="popup__error user-input-job-error"></span>
         </label>
         <button class="popup__submite" type="submit">Сохранить</button>
@@ -71,11 +71,22 @@
       <button type="button" class="popup__close" aria-label="Закрыть"></button>
     </div>
   </section>
+  <section class="popup popupConfirm">
+    <div class="popup__container">
+      <form action="index.html" class="popup__form" name="confirm" novalidate>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <input type="text" name="imageId" class="imageId" hidden>
+        <button class="popup__submite" type="submit">Да</button>
+      </form>
+      <button type="button" class="popup__close" aria-label="Закрыть"></button>
+    </div>
+  </section>
   <template class="template">
     <li class="elements__item">
       <img src="#" alt="" class="elements__image" onerror="this.parentElement.style.background = '#777';">
       <div class="elements__caption">
         <h2 class="elements__name"></h2>
+        <p class="elements__like-counter">1</p>
         <button type="button" class="elements__like" aria-label="Поставить лайк"></button>
       </div>
       <button type="button" class="elements__remove" aria-label="Удалить"></button>

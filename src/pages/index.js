@@ -6,8 +6,8 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
-import {initialCards} from '../components/initialCards.js';
 
 const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
@@ -22,33 +22,75 @@ const inputProfileJob = popupProfile.querySelector('.popup__input_value_job');
 const popupAddCard = document.querySelector('.popupAddCard');
 const formAddCard = popupAddCard.querySelector('.popup__form');
 
+const popupConfirm = document.querySelector('.popupConfirm');
+const inputImageId = popupConfirm.querySelector('.imageId');
+//const formConfirm = popupConfirm.querySelector('.popup__form');
+
+const userInfo = new UserInfo({ name: '.profile__name', about: '.profile__job', avatar: '.profile__avatar' });
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-24',
+  token: 'd3391cb4-56c4-4b0d-93af-8327d7fa2e17'
+});
+
 function cardImageClickHandler(url, text) {
   popopWithImage.open(url, text)
 }
 
-const createCard = element => {
-  const card = new Card(element, '.template', cardImageClickHandler);
+function cardRemoveHandler(id) {
+  inputImageId.value = id;
+  confirmPopupWithForm.open();
+}
+
+function submitRemove() {
+  const id = inputImageId.value;
+  console.log(sectionCards);
+  // api.removeCard(id)
+  //   .then(() => {
+  //     document.querySelector(`${id}`).remove();
+  //   })
+  //console.log(inputImageId.value);
+  confirmPopupWithForm.close();
+}
+
+const confirmPopupWithForm = new PopupWithForm('.popupConfirm', submitRemove);
+confirmPopupWithForm.setEventListeners();
+
+const createCard = (element, myId) => {
+  const card = new Card(element, myId, '.template', cardImageClickHandler, cardRemoveHandler);
   return card.generateCard();
 }
 
-const sectionCards = new Section({ items:initialCards, renderer: (dataCard) => {
-      const newCardElement = createCard(dataCard);
-      sectionCards.addItem(newCardElement);
-    }
-  }, '.elements__items');
-sectionCards.renderItems();
+const sectionCards = new Section({ renderer: (dataCard, myId) => {
+  const newCardElement = createCard(dataCard, myId);
+  sectionCards.addItem(newCardElement);
+  }
+}, '.elements__items');
 
-const userInfo = new UserInfo({ name: '.profile__name', job: '.profile__job' });
+let myId = null;
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([user, items]) => {
+    userInfo.setUserInfo(user);
+    myId = user._id;
+    sectionCards.renderItems(items, myId);
+  })
 
 function submitFormProfile(data) {
-  userInfo.setUserInfo(data);
+  api.setUserInfo(data)
+    .then((user) => {
+      userInfo.setUserInfo(user);
+    });
 }
 
 const profilePopupWithForm = new PopupWithForm('.popupProfile', submitFormProfile);
 profilePopupWithForm.setEventListeners();
 
 function submitNewCard(data) {
-  sectionCards.addItem(createCard(data), true);
+  api.addNewCard(data)
+    .then((card) => {
+      sectionCards.addItem(createCard(card, myId), true);
+    });
 }
 
 const addCardPopupWithForm = new PopupWithForm('.popupAddCard', submitNewCard);
@@ -62,7 +104,7 @@ editProfileButton.addEventListener('click', () => {
   const data = userInfo.getUserInfo(nameProfile, jobProfile);
 
   inputProfileName.value = data.name;
-  inputProfileJob.value = data.job;
+  inputProfileJob.value = data.about;
   editFormValidator.resetValidation();
   profilePopupWithForm.open();
 });
